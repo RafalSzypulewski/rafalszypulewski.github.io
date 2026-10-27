@@ -1,0 +1,49 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection, render } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import Main from "@/components/Main.astro";
+import Footer from "@/components/Footer.astro";
+import config from "@/config";
+
+export const getStaticPaths = (async () => {
+  const projects = await getCollection("projects");
+  return projects.map(project => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}) satisfies GetStaticPaths;
+
+const { project } = Astro.props;
+const { title, description, tools, repoUrl, ciUrl } = project.data;
+const { Content } = await render(project);
+---
+
+<Layout title={`${title} | ${config.site.title}`} description={description}>
+  <Header />
+
+  <Breadcrumb />
+
+  <Main pageTitle={title} pageDesc={description} class="app-prose">
+    <p>
+      <strong>Tools:</strong>{" "}
+      {tools.join(", ")}
+    </p>
+    <p>
+      <a href={repoUrl}>Repository</a>
+      {
+        ciUrl && (
+          <>
+            {" "}
+            · <a href={ciUrl}>CI results</a>
+          </>
+        )
+      }
+    </p>
+    <Content />
+  </Main>
+
+  <Footer />
+</Layout>
