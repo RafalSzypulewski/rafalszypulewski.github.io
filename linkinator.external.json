@@ -1,0 +1,10 @@
+{
+  "recurse": true,
+  "timeout": 15000,
+  "retryErrors": true,
+  "retryErrorsCount": 2,
+  "skip": [
+    "^https://rafalszypulewski\\.github\\.io/",
+    "^https://www\\.linkedin\\.com/sharing/"
+  ]
+}

@@ -78,7 +78,7 @@ Not in scope (considered and left out): role-based locators or `data-testid` att
 Each one adds a CI job, plus a short blog post if it's worth one.
 
 - **Phase 5 — Accessibility:** ✅ `@axe-core/playwright` scan (WCAG 2.1 A/AA) of every page in the built sitemap, in light and dark themes; fails on serious or critical violations; full results attached to the HTML report. `makeAxeBuilder` fixture, `tests/specs/accessibility.spec.ts`.
-- **Phase 6 — Broken links:** a link checker (e.g. lychee or linkinator) run against the built `dist/`, including external links in blog posts.
+- **Phase 6 — Broken links:** ✅ linkinator crawls the built `dist/`. `npm run test:links` checks internal links and `#fragments` and fails the Tests workflow; `npm run test:links:external` also checks external links but only reports (`continue-on-error`), skipping the site's own domain (covered by the internal check) and LinkedIn share links (bot-blocked). Configs: `linkinator.config.json`, `linkinator.external.json`. Found and removed a dead `favicon.ico` link.
 - **Phase 7 — Lighthouse CI:** `@lhci/cli` with budgets for performance, accessibility, SEO, and best practices.
 - **Phase 8 — Visual regression:** Playwright `toHaveScreenshot`, with baselines generated in CI on Linux (Windows renders fonts differently).
 - **Phase 9 — Polish version:** add `pl` to the locales, a language switcher, translated UI strings, and Polish content.

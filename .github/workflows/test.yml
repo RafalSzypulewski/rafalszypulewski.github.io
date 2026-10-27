@@ -37,6 +37,14 @@ jobs:
       - name: Build site
         run: npm run build
 
+      - name: Check internal links
+        run: npm run test:links
+
+      # External sites are flaky, so report broken links without failing.
+      - name: Check external links
+        continue-on-error: true
+        run: npm run test:links:external
+
       - name: Run Playwright tests
         run: npm run test:e2e
 
