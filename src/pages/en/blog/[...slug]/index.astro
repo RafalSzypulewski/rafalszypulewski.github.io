@@ -124,6 +124,7 @@ const ogImage = ogImageUrl
       <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
       <span
         aria-hidden="true"
+        data-pagefind-ignore
         class:list={[
           "text-muted-foreground max-sm:hidden",
           { hidden: !config.features.editPost?.enabled || hideEditPost },
