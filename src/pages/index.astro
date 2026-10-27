@@ -1,6 +1,49 @@
 ---
-// Root page: static builds turn this into an instant meta-refresh redirect to /en/.
+// Root page: an instant redirect to /en/. Hand-written instead of Astro.redirect
+// so it uses the site's theme colours rather than flashing white.
 import { getRelativeLocaleUrl } from "astro:i18n";
+import config from "@/config";
 
-return Astro.redirect(getRelativeLocaleUrl("en", ""), 301);
+const target = getRelativeLocaleUrl("en", "");
 ---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting to {target}</title>
+    <meta http-equiv="refresh" content={`0;url=${target}`} />
+    <meta name="robots" content="noindex" />
+    <link rel="canonical" href={new URL(target, config.site.url)} />
+    <!-- Background values from src/styles/theme.css -->
+    <style is:inline>
+      html {
+        color-scheme: light;
+        background: #fdfdfd;
+      }
+      @media (prefers-color-scheme: dark) {
+        html {
+          color-scheme: dark;
+          background: #212737;
+        }
+      }
+      html[data-theme="light"] {
+        color-scheme: light;
+        background: #fdfdfd;
+      }
+      html[data-theme="dark"] {
+        color-scheme: dark;
+        background: #212737;
+      }
+    </style>
+    <!-- Same theme choice as Layout.astro (saved choice, else system), then redirect. -->
+    <script is:inline define:vars={{ target }}>
+      const theme = localStorage.getItem("theme");
+      if (theme) document.documentElement.setAttribute("data-theme", theme);
+      location.replace(target);
+    </script>
+  </head>
+  <body>
+    <a href={target}>Redirecting to {target}</a>
+  </body>
+</html>
