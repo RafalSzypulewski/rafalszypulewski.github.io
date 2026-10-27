@@ -54,16 +54,35 @@ Source brief: `D:\Personal Brand Website Plan.md` (Oct 27, 2026).
 
 Cadence after launch: one short post every 2–3 weeks.
 
+## Phase 4 — Refactor Playwright tests
+
+Restructure the Phase 2–3 specs around recommended Playwright patterns. Coverage stays the same; how it's organised, where the data comes from, and how failures are reported change. Starts after Phase 3 (`tests/blog.spec.ts`) is merged.
+
+| # | Step | Verify |
+| --- | --- | --- |
+| 4.1 | **Folder layout:** `tests/specs/`, `tests/pages/`, `tests/fixtures/`, `tests/data/`; point `testDir` at `tests/specs` | Same tests, all green |
+| 4.2 | **Data from source:** `tests/data/` exports expected values read from the app instead of hardcoded strings: headings and nav labels from `src/i18n/lang/en.ts`, socials and title from `astro-paper.config.ts`, the post list (slug, title, draft) from `src/content/posts/` frontmatter | Changing a nav label or adding a post needs no test edits |
+| 4.3 | **Page objects:** a base `SitePage` (path, `goto()`, h1) used directly for posts and other plain pages, extended by `HomePage`, `BlogIndexPage`, `AboutPage`, `ContactPage`; plus a `Header` component. Selectors live only here (current CSS ids kept; role-based locators not in scope) | No `page.locator(...)` or raw selectors left in specs |
+| 4.4 | **Custom fixtures:** `test.extend` provides the page objects, plus `pageAt(path)` for any other page; specs import `test`/`expect` from `tests/fixtures` | Specs take page objects as fixture args, e.g. `({ blogIndex }) =>` |
+| 4.5 | **One test per item:** generate a separate test per page, nav link, contact link, and post from 4.2 data, replacing the loops inside single tests | One broken page or post fails only its own test |
+| 4.6 | **describe, step, tags:** group by area with `test.describe`; `test.step` in multi-step flows (navigation, post click-through); tag redirect, headings and CV link `@smoke` | `npx playwright test --grep @smoke` runs only the smoke subset; steps show in the HTML report |
+| 4.7 | **Config:** `screenshot: "only-on-failure"`, `trace: "retain-on-failure"`; `BASE_URL` env var overrides `baseURL` and skips `webServer` | A forced failure leaves a screenshot and trace in the report; `BASE_URL=https://rafalszypulewski.github.io npx playwright test --grep @smoke` passes against the live site |
+| 4.8 | **Tooling:** `eslint-plugin-playwright` (recommended rules) for `tests/**`; add `tests/` and `playwright.config.ts` to the `.prettierignore` allowlist; run `npm run lint` and `npm run format:check` in `test.yml` before Playwright | Lint and format pass locally; a lint error fails the Tests workflow |
+
+Not in scope (considered and left out): role-based locators or `data-testid` attributes, a mobile viewport project, Firefox and WebKit, removing `!` non-null assertions.
+
+4.7 also prepares post-deploy smoke tests (running `@smoke` against the live site after `deploy`), which could become a later step.
+
 ## Optional phases (decide later, any order)
 
 Each one adds a CI job, plus a short blog post if it's worth one.
 
-- **Phase 4 — Accessibility:** `@axe-core/playwright` scan on every page; fail on serious or critical violations.
-- **Phase 5 — Broken links:** a link checker (e.g. lychee or linkinator) run against the built `dist/`, including external links in blog posts.
-- **Phase 6 — Lighthouse CI:** `@lhci/cli` with budgets for performance, accessibility, SEO, and best practices.
-- **Phase 7 — Visual regression:** Playwright `toHaveScreenshot`, with baselines generated in CI on Linux (Windows renders fonts differently).
-- **Phase 8 — Polish version:** add `pl` to the locales, a language switcher, translated UI strings, and Polish content.
-- **Phase 9 — Extras:** custom domain (`CNAME` + DNS), GoatCounter or Umami analytics, Giscus comments.
+- **Phase 5 — Accessibility:** `@axe-core/playwright` scan on every page; fail on serious or critical violations.
+- **Phase 6 — Broken links:** a link checker (e.g. lychee or linkinator) run against the built `dist/`, including external links in blog posts.
+- **Phase 7 — Lighthouse CI:** `@lhci/cli` with budgets for performance, accessibility, SEO, and best practices.
+- **Phase 8 — Visual regression:** Playwright `toHaveScreenshot`, with baselines generated in CI on Linux (Windows renders fonts differently).
+- **Phase 9 — Polish version:** add `pl` to the locales, a language switcher, translated UI strings, and Polish content.
+- **Phase 10 — Extras:** custom domain (`CNAME` + DNS), GoatCounter or Umami analytics, Giscus comments.
 
 ## Content needed from you
 
