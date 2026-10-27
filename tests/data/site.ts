@@ -57,3 +57,12 @@ export const posts = readdirSync(POSTS_DIR)
   );
 
 export const postsPerPage = config.posts?.perPage ?? 4;
+
+// Every page the site publishes, from the built sitemap (needs `npm run build`).
+export const sitemapPaths = readdirSync("dist")
+  .filter(file => /^sitemap-\d+\.xml$/.test(file))
+  .flatMap(file =>
+    [
+      ...readFileSync(`dist/${file}`, "utf8").matchAll(/<loc>([^<]+)<\/loc>/g),
+    ].map(([, url]) => new URL(url).pathname)
+  );

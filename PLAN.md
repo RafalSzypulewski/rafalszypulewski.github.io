@@ -77,7 +77,7 @@ Not in scope (considered and left out): role-based locators or `data-testid` att
 
 Each one adds a CI job, plus a short blog post if it's worth one.
 
-- **Phase 5 — Accessibility:** `@axe-core/playwright` scan on every page; fail on serious or critical violations.
+- **Phase 5 — Accessibility:** ✅ `@axe-core/playwright` scan (WCAG 2.1 A/AA) of every page in the built sitemap, in light and dark themes; fails on serious or critical violations; full results attached to the HTML report. `makeAxeBuilder` fixture, `tests/specs/accessibility.spec.ts`.
 - **Phase 6 — Broken links:** a link checker (e.g. lychee or linkinator) run against the built `dist/`, including external links in blog posts.
 - **Phase 7 — Lighthouse CI:** `@lhci/cli` with budgets for performance, accessibility, SEO, and best practices.
 - **Phase 8 — Visual regression:** Playwright `toHaveScreenshot`, with baselines generated in CI on Linux (Windows renders fonts differently).
