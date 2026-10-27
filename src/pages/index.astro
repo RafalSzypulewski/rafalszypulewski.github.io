@@ -1,0 +1,6 @@
+---
+// Root page: static builds turn this into an instant meta-refresh redirect to /en/.
+import { getRelativeLocaleUrl } from "astro:i18n";
+
+return Astro.redirect(getRelativeLocaleUrl("en", ""), 301);
+---
