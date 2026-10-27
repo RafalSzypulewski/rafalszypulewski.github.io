@@ -12,6 +12,8 @@
 !eslint.config.js
 !README.md
 !.vscode
+!/tests
+!playwright.config.ts
 
 # Ignore MDX files
 *.mdx

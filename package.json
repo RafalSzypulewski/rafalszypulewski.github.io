@@ -44,10 +44,12 @@
     "@typescript-eslint/parser": "^8.62.0",
     "eslint": "^10.6.0",
     "eslint-plugin-astro": "^2.1.1",
+    "eslint-plugin-playwright": "^2.12.1",
     "pagefind": "^1.5.2",
     "prettier": "3.9.3",
     "prettier-plugin-astro": "0.14.1",
     "prettier-plugin-tailwindcss": "^0.8.0",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "yaml": "^2.9.1"
   }
 }
