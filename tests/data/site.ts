@@ -15,6 +15,7 @@ function frontmatter(file: string): Record<string, unknown> {
 export const site = {
   title: config.site.title,
   socials: config.socials ?? [],
+  editPageLabel: t.post.editPage,
 };
 
 export const pages = {

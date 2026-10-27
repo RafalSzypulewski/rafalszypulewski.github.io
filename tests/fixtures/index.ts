@@ -5,6 +5,7 @@ import { BlogIndexPage } from "../pages/BlogIndexPage";
 import { ContactPage } from "../pages/ContactPage";
 import { Header } from "../pages/Header";
 import { HomePage } from "../pages/HomePage";
+import { SearchPage } from "../pages/SearchPage";
 import { SitePage } from "../pages/SitePage";
 
 type Fixtures = {
@@ -13,6 +14,7 @@ type Fixtures = {
   blogIndex: BlogIndexPage;
   about: AboutPage;
   contact: ContactPage;
+  search: SearchPage;
   /** Page object for any other path, e.g. a blog post. */
   pageAt: (path: string) => SitePage;
   /** axe scanner preconfigured for WCAG 2.1 A and AA. */
@@ -25,6 +27,7 @@ export const test = base.extend<Fixtures>({
   blogIndex: async ({ page }, use) => use(new BlogIndexPage(page)),
   about: async ({ page }, use) => use(new AboutPage(page)),
   contact: async ({ page }, use) => use(new ContactPage(page)),
+  search: async ({ page }, use) => use(new SearchPage(page)),
   pageAt: async ({ page }, use) => use(path => new SitePage(page, path)),
   makeAxeBuilder: async ({ page }, use) =>
     use(() =>
