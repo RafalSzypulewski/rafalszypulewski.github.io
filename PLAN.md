@@ -71,7 +71,7 @@ Restructure the Phase 2–3 specs around recommended Playwright patterns. Covera
 
 Not in scope (considered and left out): role-based locators or `data-testid` attributes, a mobile viewport project, Firefox and WebKit, removing `!` non-null assertions.
 
-4.7 also prepares post-deploy smoke tests (running `@smoke` against the live site after `deploy`), which could become a later step.
+**Post-deploy smoke tests** ✅ (follow-up to 4.7): a `smoke` job in `deploy.yml` runs after `deploy` and runs `npm run test:smoke` (`@smoke` tests) against the deployed URL via `BASE_URL`; HTML report uploaded as the `smoke-report` artifact. The site is already live when it runs, so a failure doesn't roll back, but it turns the run and the homepage badge red.
 
 ## Optional phases (decide later, any order)
 
