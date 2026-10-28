@@ -36,3 +36,7 @@ compose.override.yaml
 test-results/
 playwright-report/
 blob-report/
+
+# lighthouse ci
+.lighthouseci/
+lighthouse-report/
