@@ -29,11 +29,10 @@ export default defineAstroPaperConfig({
     },
     search: "pagefind",
   },
-  // TODO: replace placeholder LinkedIn URL and email
   socials: [
     { name: "github",   url: "https://github.com/RafalSzypulewski" },
-    { name: "linkedin", url: "https://www.linkedin.com/in/your-profile/" },
-    { name: "mail",     url: "mailto:you@example.com" },
+    { name: "linkedin", url: "https://www.linkedin.com/in/rafa%C5%82-szypulewski-0a400bb5/" },
+    { name: "mail",     url: "mailto:rafal.szypulewski@proton.me" },
   ],
   shareLinks: [
     { name: "linkedin", url: "https://www.linkedin.com/sharing/share-offsite/?url=" },
