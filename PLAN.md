@@ -88,10 +88,10 @@ Each one adds a CI job, plus a short blog post if it's worth one.
 
 The site uses placeholders for these until you provide them:
 
-- [ ] Pitch line for the homepage
+- [x] Pitch line for the homepage
 - [ ] Short bio and skills list
 - [ ] CV PDF
-- [ ] LinkedIn URL and contact email
-- [ ] Practice-site project: repo URL, CI URL, what you tested, tools used, problems you hit
+- [x] LinkedIn URL and contact email
+- [x] Projects: Tech Content Radar and PW Practice Lab (TrainingWebsite) replace the placeholder
 
 > Reminder from the brief: don't let the website become the project. Most of your learning time belongs to test automation; the site is the shop window for it.
